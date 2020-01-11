@@ -2,10 +2,10 @@ package sweeps;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Transform {
-    public static Sector generateWalls(Sector sector) {
-	Sector sector2 = new Sector(sector.size());
+    public static void generateWalls(Sector sector) {
 	for (int x=0; x<sector.size(); x++) {
 	    for (int y=0; y<sector.size(); y++) {
 		int count = 0;
@@ -19,19 +19,16 @@ public class Transform {
 			}
 		    }
 		}
-		sector2.setCell(x, y, count>=4);
+		sector.setCell(x, y, count>=4);
 	    }
 	}
     }
 
     public static void populateRandom(Sector sector) {
-	for (int xw=0; xw<10; xw++) {
-	    for (int yw=0; yw<10; yw++) {
-		for (int xs=0; xs<25; xs++) {
-		    for (int xy=0; xy<25; xy++) {
-
-		    }
-		}
+	Random rand = new Random();
+	for (int x=0; x<sector.size(); x++) {
+	    for (int y=0; y<sector.size(); y++) {
+		sector2.setCell(x, y, rand.nextInt(2)==1);
 	    }
 	}
     }
