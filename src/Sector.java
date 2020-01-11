@@ -2,33 +2,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sector {
-    public ArrayList<List<Boolean>> data;
+    public ArrayList<ArrayList<Boolean>> data;
     public Sector() {
-	ArrayList<List<Boolean>> data = new ArrayList(25);
+	ArrayList<ArrayList<Boolean>> data = new ArrayList<ArrayList<Boolean>>();
 	for (int i=0; i<25; i++) {
 	    ArrayList<Boolean> row = new ArrayList(25);
 	    for (int j=0; j<25; j++) {
-		row.set(j, false);
+		row.add(false);
 	    }
-	    data.set(i, row);
+	    data.add(row);
 	}
         this.data = data;
     }
 
     public Sector(int size) {
-	ArrayList<List<Boolean>> data = new ArrayList(size);
+	ArrayList<ArrayList<Boolean>> data = new ArrayList();
 	for (int i=0; i<size; i++) {
-	    ArrayList<Boolean> row = new ArrayList(size);
+	    ArrayList<Boolean> row = new ArrayList();
 	    for (int j=0; j<size; j++) {
-		row.set(j, false);
+		row.add(j, false);
 	    }
-	    data.set(i, row);
+	    data.add(i, row);
 	}
         this.data = data;
     }
 
     public Sector(ArrayList<ArrayList<Boolean>> data) {
-	ArrayList<List<Boolean>> out = new ArrayList<List<Boolean>>(data.size());
+	ArrayList<ArrayList<Boolean>> out = new ArrayList<ArrayList<Boolean>>(data.size());
 	for (int x=0; x<data.size(); x++) {
 	    ArrayList<Boolean> column = new ArrayList<Boolean>();
 	    for (int y=0; y<data.get(0).size(); y++) {
@@ -39,14 +39,15 @@ public class Sector {
     }
 
     public void setCell(int x, int y, boolean val) {
-	this.data.get(x).get(y) = val;
-    }
-
-    public int getSize() {
-        return this.data.size();
+	this.data.get(x).set(y, val);
     }
 
     public Boolean getCell(int x, int y) {
 	return this.data.get(x).get(y);
     }
+
+    public int size() {
+        return this.data.size();
+    }
+
 }
