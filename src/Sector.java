@@ -1,3 +1,5 @@
+package terrain;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +32,11 @@ public class Sector {
     public Sector(ArrayList<ArrayList<Boolean>> data) {
 	ArrayList<ArrayList<Boolean>> out = new ArrayList<ArrayList<Boolean>>(data.size());
 	for (int x=0; x<data.size(); x++) {
-	    ArrayList<Boolean> column = new ArrayList<Boolean>();
+	    ArrayList<Boolean> row = new ArrayList<Boolean>();
 	    for (int y=0; y<data.get(0).size(); y++) {
-		column.set(y, data.get(x).get(y));
+		row.set(y, data.get(x).get(y));
 	    }
-	    out.set(x, column);
+	    out.set(x, row);
 	}
     }
 
