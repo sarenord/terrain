@@ -79,17 +79,20 @@ public class Sector {
 					int myY = Integer.parseInt(ID.substring(this.ID.indexOf("."), this.ID.length()));
 					int neighborX;
 					int neighborY;
+					int cellX;
+					int cellY;
 					switch (Arrays.toString(offs)) {
+						//TODO: fix external cell locating
 						case "[-1, -1]":
-							if (x==0) { neighborX = myX-1; }
+							if (x==0) { neighborX = myX-1; cellX = this.size();} else { neighborX = myX; cellX = x-1; }
 							if (y==0) { neighborY = myY-1; }
-							out[0] = this.parent.getSector(neighborX, neighborY).getCell(this.data.size(), y-1);
+							out[0] = this.parent.getSector(neighborX, neighborY).getCell(cellX, cellY);
 							break;
 						case "[0, -1]":
 							out[1] = this.parent.getSector(myX, myY-1).getCell(x, this.data.size());
 							break;
 						case "[1, -1]":
-							if (x==this.size()) { neighborX = myX+1; }
+							if (x==this.size()) { neighborX = myX+1; cellX = 0} else { neighborX = myX; cellX=x+1; }
 							if (y==0) { neighborY = myY-1; }
 							out[2] = this.parent.getSector(neighborX, neighborY).getCell(x+1, y-1);
 							break;
@@ -102,7 +105,7 @@ public class Sector {
 						case "[-1, 1]":
 							if (x==0) { neighborX = myX-1; }
 							if (y==this.size()) { neighborY = myY+1; }
-							//out[5] = this.parent.getSector(neighborX, neighborY).getCell();
+							out[5] = this.parent.getSector(neighborX, neighborY).getCell();
 							}
 							break;
 						case "[0, 1]":
