@@ -42,8 +42,43 @@ public class Transform {
 						}
 					}
 				}
-				System.out.println(count);
-				sector.setCell(x, y, count>=threshold);
+				if (count>= threshold) {
+				    System.out.printf("%d %d\n", x, y);
+					sector.setCell(x, y, true);
+				}
+				else {
+					sector.setCell(x, y, false);
+				}
+			}
+		}
+	}
+
+	//I'm so sorry if anyone ever has to see this aside from me
+	public static void generateWalls(World world, int threshold) {
+	    for (int xw=0; xw<world.getSectorRowSize(); xw++) {
+	    	for (int yw=0; yw<world.getSectorRowSize(); yw++) {
+				for (int xs=0; xs<world.getSector(0, 0).size(); xs++) {
+					for (int ys=0; ys<world.getSector(0, 0).size(); ys++) {
+						int count = 0;
+						for (int xo=-1; xo<2; xo++) {
+							for (int yo=-1; yo<2; yo++) {
+								try {
+									if (world.getSector(xw, yw).getCell(xs+xo, ys+yo) == true) {
+										count++;
+									}
+								}
+								catch(Exception e) {
+								}
+							}
+						}
+						if (count>= threshold) {
+							world.getSector(xw, yw).setCell(xs, ys, true);
+						}
+						else {
+							world.getSector(xw, yw).setCell(xs, ys, false);
+						}
+					}
+				}
 			}
 		}
 	}

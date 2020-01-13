@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Sector {
 	public ArrayList<ArrayList<Boolean>> data;
+	public World parent = null;
 	public Sector() {
 		ArrayList<ArrayList<Boolean>> data = new ArrayList<ArrayList<Boolean>>();
 		for (int i=0; i<25; i++) {
@@ -27,6 +28,31 @@ public class Sector {
 			data.add(i, row);
 		}
 		this.data = data;
+	}
+
+	public Sector(World world) {
+		ArrayList<ArrayList<Boolean>> data = new ArrayList<ArrayList<Boolean>>();
+		for (int i=0; i<25; i++) {
+			ArrayList<Boolean> row = new ArrayList(25);
+			for (int j=0; j<25; j++) {
+				row.add(false);
+			}
+			data.add(row);
+		}
+		this.data = data;
+		this.parent = world;
+	}
+
+	public boolean getSurround(int x, int y) {
+	    boolean[] out = new boolean[8];
+	    int count = 0;
+		for (int yo=-1; yo<=1; yo++) {
+			for (int xo=-1; xo<=1; xo++) {
+				try {
+					out[count] = this.getCell(x+xo, y+yo);
+				}
+			}
+		}
 	}
 
 	public Sector(ArrayList<ArrayList<Boolean>> data) {

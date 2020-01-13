@@ -12,7 +12,7 @@ public class World {
             ArrayList<Sector> sectorRow = new ArrayList<Sector>();
             data.add(sectorRow);
             for (int yw = 0; yw < 10; yw++) {
-                Sector s = new Sector();
+                Sector s = new Sector(this);
                 sectorRow.add(s);
                 for (int xs = 0; xs < 25; xs++) {
                     for (int ys = 0; ys < 10; ys++) {
@@ -41,27 +41,29 @@ public class World {
     }
 
     public static Sector asSector(World data) {
-	Sector sector = new Sector(data.getSectorSize()*data.getSectorRowSize());
-	for (int yw=0; yw<data.getSectorRowSize(); yw++) {
-	    for (int ys=0; ys<data.getSector(0, 0).size(); ys++) {
-		for (int xw=0; xw<data.getSectorRowSize(); xw++) {
-		    for (int xs=0; xs<data.getSector(0, 0).size(); xs++) {
-			int x = (xw*data.getSector(0, 0).size())+xs;
-			int y = (yw*data.getSector(0, 0).size())+ys;
-			sector.setCell(x, y, data.getSector(xw, yw).getCell(xs, ys));
-		    }
-		}
-	    }
-	}
-	return sector;
+        Sector sector = new Sector(data.getSectorSize()*data.getSectorRowSize());
+        for (int yw=0; yw<data.getSectorRowSize(); yw++) {
+            for (int ys=0; ys<data.getSector(0, 0).size(); ys++) {
+                for (int xw=0; xw<data.getSectorRowSize(); xw++) {
+                    for (int xs=0; xs<data.getSector(0, 0).size(); xs++) {
+                        int x = (xw*data.getSector(0, 0).size())+xs;
+                        int y = (yw*data.getSector(0, 0).size())+ys;
+                        sector.setCell(x, y, data.getSector(xw, yw).getCell(xs, ys));
+                    }
+                }
+            }
+        }
+        return sector;
     }
 
     //TODO
     public void generate() {
-	    Sector world = World.asSector(this);
-	    Transform.populateRandom(world, 30);
-	    Transform.generateWalls(world);
-	    this.data = Sector.asWorld(world, this.data.get(0).get(0).size()).data;
+        for (int x=0; x<this.getSectorRowSize(); x++) {
+            for (int y=0; y<this.getSectorRowSize(); y++) {
+                Transform.populateRandom(this.getSector(x, y));
+                Transform.generateWalls(this.getSector(x, y));
+            }
+        }
     }
 
     public int getSectorSize() {
