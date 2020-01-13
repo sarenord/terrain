@@ -14,6 +14,11 @@ public class World {
             for (int yw = 0; yw < 10; yw++) {
                 Sector s = new Sector(this);
                 sectorRow.add(s);
+                StringBuilder sectorID = new StringBuilder();
+                sectorID.append(xw);
+                sectorID.append(".");
+                sectorID.append(yw);
+                s.ID = sectorID.toString();
                 for (int xs = 0; xs < 25; xs++) {
                     for (int ys = 0; ys < 10; ys++) {
                         data.get(xw).get(yw).setCell(xs, ys, false);
@@ -31,6 +36,11 @@ public class World {
             for (int yw = 0; yw < numSectors; yw++) {
                 Sector s = new Sector();
                 sectorRow.add(s);
+                StringBuilder sectorID = new StringBuilder();
+                sectorID.append(xw);
+                sectorID.append(".");
+                sectorID.append(yw);
+                s.ID = sectorID.toString();
                 for (int xs = 0; xs < 25; xs++) {
                     for (int ys = 0; ys < 25; ys++) {
                         data.get(xw).get(yw).setCell(xs, ys, false);
