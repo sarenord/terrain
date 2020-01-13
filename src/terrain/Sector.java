@@ -102,7 +102,7 @@ public class Sector {
 						case "[-1, 1]":
 							if (x==0) { neighborX = myX-1; }
 							if (y==this.size()) { neighborY = myY+1; }
-							out[5] = this.parent.getSector(neighborX, neighborY).getCell();
+							//out[5] = this.parent.getSector(neighborX, neighborY).getCell();
 							}
 							break;
 						case "[0, 1]":
