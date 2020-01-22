@@ -12,7 +12,7 @@ public class Transform {
 				for (int xo=-1; xo<2; xo++) {
 					for (int yo=-1; yo<2; yo++) {
 						try {
-							if (sector.getCell(x+xo, y+yo) == true) {
+							if (sector.getCell(x+xo, y+yo).getState() == true) {
 								count++;
 							}
 						}
@@ -33,7 +33,7 @@ public class Transform {
 				for (int xo=-1; xo<2; xo++) {
 					for (int yo=-1; yo<2; yo++) {
 						try {
-							if (sector.getCell(x+xo, y+yo) == true) {
+							if (sector.getCell(x+xo, y+yo).getState() == true) {
 								count++;
 							}
 						}
@@ -43,7 +43,6 @@ public class Transform {
 					}
 				}
 				if (count>= threshold) {
-				    System.out.printf("%d %d\n", x, y);
 					sector.setCell(x, y, true);
 				}
 				else {
@@ -60,15 +59,10 @@ public class Transform {
 				for (int xs=0; xs<world.getSector(0, 0).size(); xs++) {
 					for (int ys=0; ys<world.getSector(0, 0).size(); ys++) {
 						int count = 0;
-						for (int xo=-1; xo<2; xo++) {
-							for (int yo=-1; yo<2; yo++) {
-								try {
-									if (world.getSector(xw, yw).getCell(xs+xo, ys+yo) == true) {
-										count++;
-									}
-								}
-								catch(Exception e) {
-								}
+						boolean[] surround = world.getSector(xw, yw).getSurround(xs, ys);
+						for (int i=0; i<surround.length; i++) {
+							if (surround[i]==true) {
+								count++;
 							}
 						}
 						if (count>= threshold) {

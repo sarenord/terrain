@@ -12,13 +12,13 @@ public class World {
             ArrayList<Sector> sectorRow = new ArrayList<Sector>();
             data.add(sectorRow);
             for (int yw = 0; yw < 10; yw++) {
-                Sector s = new Sector(this);
-                sectorRow.add(s);
                 StringBuilder sectorID = new StringBuilder();
                 sectorID.append(xw);
                 sectorID.append(".");
                 sectorID.append(yw);
-                s.ID = sectorID.toString();
+
+                Sector s = new Sector(this, 25, sectorID.toString());
+                sectorRow.add(s);
                 for (int xs = 0; xs < 25; xs++) {
                     for (int ys = 0; ys < 10; ys++) {
                         data.get(xw).get(yw).setCell(xs, ys, false);
@@ -58,7 +58,7 @@ public class World {
                     for (int xs=0; xs<data.getSector(0, 0).size(); xs++) {
                         int x = (xw*data.getSector(0, 0).size())+xs;
                         int y = (yw*data.getSector(0, 0).size())+ys;
-                        sector.setCell(x, y, data.getSector(xw, yw).getCell(xs, ys));
+                        sector.setCell(x, y, data.getSector(xw, yw).getCell(xs, ys).getState());
                     }
                 }
             }
@@ -66,12 +66,22 @@ public class World {
         return sector;
     }
 
+    //TODO use this for error handling in terrain generation
+    public Cell getGlobalCell(int x, int y) throws InvalidPositionException {
+        int sectorX = x/this.getSector(0, 0).size();
+        int sectorY = y/this.getSector(0, 0).size();
+        Sector parent = this.getSector(sectorX, sectorY);
+        int cellX = x%this.getSector(0, 0).size();
+        int cellY = y%this.getSector(0, 0).size();
+        return parent.getCell(cellX, cellY);
+    }
+
     //TODO
     public void generate() {
         for (int x=0; x<this.getSectorRowSize(); x++) {
             for (int y=0; y<this.getSectorRowSize(); y++) {
-                Transform.populateRandom(this.getSector(x, y));
-                Transform.generateWalls(this.getSector(x, y));
+                Transform.populateRandom(this.getSector(x, y), 50);
+                Transform.generateWalls(this.getSector(x, y), 4);
             }
         }
     }

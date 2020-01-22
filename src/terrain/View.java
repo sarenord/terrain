@@ -16,8 +16,8 @@ public class View {
 		for (int y=0; y<sector.size(); y++) {
 			StringBuilder line = new StringBuilder();
 			for (int x=0; x<sector.size(); x++) {
-				line.append(sector.getCell(x, y)==true ? ONE_CHAR : ZERO_CHAR);
-				line.append(sector.getCell(x, y)==true ? ONE_CHAR : ZERO_CHAR);
+				line.append(sector.getCell(x, y).getState()==true ? ONE_CHAR : ZERO_CHAR);
+				line.append(sector.getCell(x, y).getState()==true ? ONE_CHAR : ZERO_CHAR);
 			}
 			System.out.println(line);
 		}
@@ -27,7 +27,7 @@ public class View {
 		ImageWindow display = new ImageWindow(sector.size());
 		for (int x=0; x<sector.size(); x++) {
 			for (int y=0; y<sector.size(); y++) {
-				display.drawCell(x, y, sector.getCell(x, y));
+				display.drawCell(x, y, sector.getCell(x, y).getState());
 			}
 		}
 		display.showPicture();
@@ -43,7 +43,7 @@ public class View {
 					for (int xs=0; xs<world.getSectorRowSize(); xs++) {
 						int x=(xw*world.getSectorRowSize())+xs;
 						int y=(yw*world.getSectorRowSize())+ys;
-					    display.drawCell(x, y, world.getSector(xw, yw).getCell(xs, ys));
+					    display.drawCell(x, y, world.getSector(xw, yw).getCell(xs, ys).getState());
 					}
 				}
 			}
