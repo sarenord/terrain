@@ -8,7 +8,6 @@ public class Sector {
 	public World parent = null;
 	public String ID = null;
 
-	//TODO convert all Booleans to Cells;
 	public Sector() {
 		ArrayList<ArrayList<Cell>> data = new ArrayList<ArrayList<Cell>>();
 		for (int i=0; i<25; i++) {
